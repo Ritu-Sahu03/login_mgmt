@@ -1,11 +1,9 @@
-const Homepage =()=>{
-    return(
-          <div>
-            <h1>JavaScript</h1>
-            
-            <h1>New Page </h1>
-          </div>
-        
-    )
+import React from 'react'
+
+const Homepage=()=> {
+  return (
+    <div>homepage</div>
+  )
 }
-export default Homepage;
+
+export default Homepage

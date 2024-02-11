@@ -36,10 +36,10 @@ export default function LoginPage() {
 
   
   return (
-      <div className="login_form_container">
+      <div className="login_form_container" sx={{ display:'flex'}}>
         <h2>Login</h2>
         <form onSubmit={onLogin}>
-          <div className="main_container">
+          <div className="main_container" >
             <label htmlFor="email">Email</label>
             <input type="text" id="username" name="username" />
           </div>

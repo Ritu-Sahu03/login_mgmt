@@ -1,26 +1,17 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import React , {useState} from "react";
+import { Grid, Paper, Typography, Menu, MenuItem, IconButton } from "@mui/material";
+// import { makeStyles } from '@material-ui/core/styles';
+// import Button from '@material-ui/core/Button';
+import { Link, useNavigate } from 'react-router-dom';
+import Homepage from "./homepage";
+import logo from "../Assets/logo.jpg";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleMenu = (event) => {
+const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -28,68 +19,48 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
+  const handleSignIn = () => {
+    navigate('/login');
+    handleClose();
+  };
+
+  const handleSignUp = () => {
+    navigate('/register');
+    handleClose();
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photos
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <Grid container alignItems={"center"}>
+      <Grid>
+        <img src={logo} alt="logo" width={100} height="auto"></img>
+      </Grid>
+      <Grid>
+      <Link component={Homepage} to="/home" style={{textDecoration:"none"}}>
+        <Typography >
+          StayHive
+        </Typography>
+      </Link>
+      </Grid>
+      <Typography sx={{ ml: "30%" }}>Stays</Typography>
+      <Typography sx={{ ml: "2%" }}>Property</Typography>
+      <Typography sx={{ ml: "2%" }}>Explore</Typography>
+      <Typography sx={{ ml: "30%", mr:"2%" }}>Feedback</Typography>
+      <Grid>
+      {/* <Link style={{textDecoration:"none"}}><Typography >Profile</Typography></Link> */}
+      <Link style={{textDecoration:"none"}} onClick={handleClick}><AccountCircleIcon/></Link>
+      <Menu
+        id="profile-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleSignIn} >Sign In</MenuItem>
+        <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
+      </Menu>
+      </Grid>
+
+    </Grid>
   );
-}
+};
+export default Navbar;

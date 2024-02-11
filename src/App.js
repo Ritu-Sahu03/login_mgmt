@@ -10,10 +10,10 @@ import Navbar from './component/Navbar';
 function App() {
   return (
     <Router>
+    <Navbar/>
     <div className="App">
-      <Navbar/>
     <Routes>
-    <Route path="/" element={<LoginPage />} />
+    <Route path="/home" element={<Homepage />} />
     <Route path="/register" element={<Register />} />
     <Route path="/login" element={<LoginPage />} />
     <Route path="/users" element={<UserList />} />
